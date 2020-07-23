@@ -9,8 +9,9 @@ Event Dispatching and Callback utilities.
 
 
 from twisted.python import log
-from twisted.python.compat import iteritems
 from twisted.words.xish import xpath
+
+
 
 class _MethodWrapper(object):
     """
@@ -269,8 +270,8 @@ class EventDispatcher:
         event, observers = self._getEventAndObservers(event)
 
         emptyLists = []
-        for priority, priorityObservers in iteritems(observers):
-            for query, callbacklist in iteritems(priorityObservers):
+        for priority, priorityObservers in observers.items():
+            for query, callbacklist in priorityObservers.items():
                 if event == query:
                     callbacklist.removeCallback(observerfn)
                     if callbacklist.isEmpty():
@@ -314,7 +315,7 @@ class EventDispatcher:
 
         emptyLists = []
         for priority in priorities:
-            for query, callbacklist in iteritems(observers[priority]):
+            for query, callbacklist in observers[priority].items():
                 if match(query, obj):
                     callbacklist.callback(obj)
                     foundTarget = True
