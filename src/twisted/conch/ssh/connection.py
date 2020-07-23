@@ -17,7 +17,7 @@ from twisted.conch.ssh import service, common
 from twisted.conch import error
 from twisted.internet import defer
 from twisted.python import log
-from twisted.python.compat import nativeString, networkString, long
+from twisted.python.compat import nativeString, networkString
 
 
 
@@ -161,7 +161,7 @@ class SSHConnection(service.SSHService):
             log.err(e, 'channel open failed')
             if isinstance(e, error.ConchError):
                 textualInfo, reason = e.args
-                if isinstance(textualInfo, (int, long)):
+                if isinstance(textualInfo, int):
                     # See #3657 and #3071
                     textualInfo, reason = reason, textualInfo
             else:
