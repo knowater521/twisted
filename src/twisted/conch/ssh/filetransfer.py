@@ -15,7 +15,7 @@ from twisted.conch.interfaces import ISFTPServer, ISFTPFile
 from twisted.conch.ssh.common import NS, getNS
 from twisted.internet import defer, protocol, error
 from twisted.python import failure, log
-from twisted.python.compat import itervalues, nativeString, networkString
+from twisted.python.compat import nativeString, networkString
 
 
 
@@ -534,7 +534,7 @@ class FileTransferClient(FileTransferBase):
 
     def connectionMade(self):
         data = struct.pack('!L', max(self.versions))
-        for (k, v) in itervalues(self.extData):
+        for k, v in self.extData.values():
             data += NS(k) + NS(v)
         self.sendPacket(FXP_INIT, data)
 
