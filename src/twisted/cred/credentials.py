@@ -22,7 +22,6 @@ from hashlib import md5
 
 from twisted.python.randbytes import secureRandom
 from twisted.python.compat import networkString, nativeString
-from twisted.python.compat import intToBytes
 from twisted.cred._digest import calcResponse, calcHA1, calcHA2
 from twisted.cred import error
 
@@ -272,7 +271,7 @@ class DigestCredentialFactory(object):
         """
         # Now, what we do is encode the nonce, client ip and a timestamp in the
         # opaque value with a suitable digest.
-        now = intToBytes(int(self._getTime()))
+        now = b'%d' % (int(self._getTime()),)
 
         if not clientip:
             clientip = b''
