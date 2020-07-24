@@ -53,7 +53,7 @@ from twisted.python.log import msg
 from twisted.internet import reactor, protocol, error, interfaces, defer
 from twisted.trial import unittest
 from twisted.python import runtime, procutils
-from twisted.python.compat import networkString, bytesEnviron
+from twisted.python.compat import networkString
 from twisted.python.filepath import FilePath
 
 
@@ -2263,7 +2263,7 @@ class Win32ProcessTests(unittest.TestCase):
 
         pyExe = FilePath(sys.executable)._asBytesPath()
         args = [pyExe, b"-u", b"-m", b"twisted.test.process_stdinreader"]
-        env = bytesEnviron()
+        env = dict(os.environ)
         env[b"PYTHONPATH"] = os.pathsep.join(sys.path).encode(
                                              sys.getfilesystemencoding())
         path = win32api.GetTempPath()
